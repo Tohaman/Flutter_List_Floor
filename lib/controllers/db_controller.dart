@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class DBController extends GetxController {
   bool needInit = false;
+  MainDatabase mainBase;
 
   Callback callback() => Callback(
       onCreate: (database, version) async {
@@ -23,9 +24,11 @@ class DBController extends GetxController {
     if (needInit) {
       var dao = db.mainDao;
       print("Init DB with db.dao");
+      needInit = false;
     } else {
       print("not first start, db.init don't need");
     }
-    return db;
+    mainBase = db;
+    return mainBase;
   }
 }

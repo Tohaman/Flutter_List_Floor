@@ -1,11 +1,10 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_floor/controllers/db_controller.dart';
-import 'package:flutter_list_floor/database/entitys/main_db_item.dart';
+import 'package:flutter_list_floor/controllers/repository.dart';
 import 'package:get/get.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
-import 'database/fill_db.dart';
 import 'database/main_database.dart';
 import 'ui/learn_screen.dart';
 
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
   void putDAOs({db: MainDatabase}) {
     print("putDAOs");
     Get.put(db.mainDao);
-  }
 
+    Get.put(Repository());
+  }
 }

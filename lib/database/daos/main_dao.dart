@@ -5,6 +5,8 @@ import 'package:flutter_list_floor/database/entitys/main_db_item.dart';
 @dao
 abstract class MainDao extends AbstractDao<MainDBItem> {
   @Query('select * from main')
-  Stream<List<MainDBItem>> getAllItems();
+  Future<List<MainDBItem>> getAllItems();
 
+  @Query('SELECT * FROM main WHERE phase = :phase ORDER BY id')
+  Future<List<MainDBItem>> getPhase(String phase);
 }

@@ -187,6 +187,26 @@ class _$MainDao extends MainDao {
   }
 
   @override
+  Future<List<MainDBItem>> getPhase(String phase) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM main WHERE phase = ? ORDER BY id',
+        arguments: <dynamic>[phase],
+        mapper: (Map<String, dynamic> row) => MainDBItem(
+            id: row['id'] as int,
+            phase: row['phase'] as String,
+            title: row['title'] as String,
+            icon: row['icon'] as String,
+            description: row['description'] as String,
+            url: row['url'] as String,
+            comment: row['comment'] as String,
+            isFavourite: row['isFavourite'] == null
+                ? null
+                : (row['isFavourite'] as int) != 0,
+            favComment: row['favComment'] as String,
+            subId: row['subId'] as int));
+  }
+
+  @override
   Future<int> insertItem(MainDBItem item) {
     return _mainDBItemInsertionAdapter.insertAndReturnId(
         item, OnConflictStrategy.abort);

@@ -24,8 +24,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<MainDatabase> data) {
           if (data.hasData) {
             print(data.data.toString());
-            Get.put(data.data.mainDao);
-            putDAOs(db: data.data);
+            putDAOs(data.data);
             return Learn();
           } else if (data.hasError) {
             return Center(child: Text("Can't create or open database"));
@@ -36,9 +35,9 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void putDAOs({db: MainDatabase}) {
+  void putDAOs(MainDatabase db) {
     print("putDAOs");
-
+    Get.put(db.mainDao);
     Get.put(Repository());
     Get.put(LearnController());
   }

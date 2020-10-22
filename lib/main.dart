@@ -1,6 +1,7 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_floor/controllers/db_controller.dart';
+import 'package:flutter_list_floor/controllers/learn_controller.dart';
 import 'package:flutter_list_floor/controllers/repository.dart';
 import 'package:get/get.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
         future: dbFuture.fillDB(),
         builder: (BuildContext context, AsyncSnapshot<MainDatabase> data) {
           if (data.hasData) {
+            print(data.data.toString());
+            Get.put(data.data.mainDao);
             putDAOs(db: data.data);
             return Learn();
           } else if (data.hasError) {
@@ -35,8 +38,8 @@ class MyApp extends StatelessWidget {
 
   void putDAOs({db: MainDatabase}) {
     print("putDAOs");
-    Get.put(db.mainDao);
 
     Get.put(Repository());
+    Get.put(LearnController());
   }
 }

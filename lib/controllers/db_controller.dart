@@ -1,5 +1,11 @@
 import 'package:floor/floor.dart';
+import 'package:flutter_list_floor/controllers/repository.dart';
+import 'package:flutter_list_floor/database/entitys/main_db_item.dart';
+import 'package:flutter_list_floor/database/entitys/phases.dart';
 import 'package:flutter_list_floor/database/main_database.dart';
+import 'package:flutter_list_floor/res/mainMenu/main2x2.dart';
+import 'package:flutter_list_floor/res/mainMenu/main3x3.dart';
+import 'package:flutter_list_floor/res/mainMenu/main3x3/rozov.dart';
 import 'package:get/get.dart';
 
 class DBController extends GetxController {
@@ -17,18 +23,38 @@ class DBController extends GetxController {
   );
 
   Future<MainDatabase> fillDB() async {
-    var db = await $FloorMainDatabase
+    mainBase = await $FloorMainDatabase
         .databaseBuilder('main.db')
         .addCallback(callback())
         .build();
     if (needInit) {
-      var dao = db.mainDao;
+      await _initPhase(Main2x2());
+      await _initPhase(Main3x3());
+      await _initPhase(Rozov());
       print("Init DB with db.dao");
       needInit = false;
     } else {
       print("not first start, db.init don't need");
     }
-    mainBase = db;
+
     return mainBase;
   }
+
+  Future _initPhase(Phase phase) async {
+    for (var i = 0; i < phase.count; i++) {
+      var item = MainDBItem(
+          phase: phase.phase,
+          id: i,
+          title: phase.titles()[i],
+          icon: phase.icons()[i],
+          description: phase.descriptions()[i],
+          url: phase.urls()[i],
+          comment: phase.comments()[i],
+          isFavourite: false,
+          favComment: "",
+          subId: 0);
+      mainBase.mainDao.insertItem(item);
+    }
+  }
+
 }

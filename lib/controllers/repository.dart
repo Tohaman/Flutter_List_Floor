@@ -10,6 +10,7 @@ class Repository extends GetxController {
 
   Future<List<MainDBItem>> getMainDBItems(String phase) async {
     //if (_cache.isEmpty) { _cache = await _mainDao.getAllItems();}
-    return _mainDao.getPhase(phase);
+    var result = await _mainDao.getPhase(phase);
+    return result;
   }
 }

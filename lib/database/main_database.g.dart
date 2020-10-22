@@ -96,7 +96,7 @@ class _$MainDatabase extends MainDatabase {
 
 class _$MainDao extends MainDao {
   _$MainDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database, changeListener),
+      : _queryAdapter = QueryAdapter(database),
         _mainDBItemInsertionAdapter = InsertionAdapter(
             database,
             'main',
@@ -113,8 +113,7 @@ class _$MainDao extends MainDao {
                       : (item.isFavourite ? 1 : 0),
                   'favComment': item.favComment,
                   'subId': item.subId
-                },
-            changeListener),
+                }),
         _mainDBItemUpdateAdapter = UpdateAdapter(
             database,
             'main',
@@ -132,8 +131,7 @@ class _$MainDao extends MainDao {
                       : (item.isFavourite ? 1 : 0),
                   'favComment': item.favComment,
                   'subId': item.subId
-                },
-            changeListener),
+                }),
         _mainDBItemDeletionAdapter = DeletionAdapter(
             database,
             'main',
@@ -151,8 +149,7 @@ class _$MainDao extends MainDao {
                       : (item.isFavourite ? 1 : 0),
                   'favComment': item.favComment,
                   'subId': item.subId
-                },
-            changeListener);
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -167,10 +164,8 @@ class _$MainDao extends MainDao {
   final DeletionAdapter<MainDBItem> _mainDBItemDeletionAdapter;
 
   @override
-  Stream<List<MainDBItem>> getAllItems() {
-    return _queryAdapter.queryListStream('select * from main',
-        queryableName: 'main',
-        isView: false,
+  Future<List<MainDBItem>> getAllItems() async {
+    return _queryAdapter.queryList('select * from main',
         mapper: (Map<String, dynamic> row) => MainDBItem(
             id: row['id'] as int,
             phase: row['phase'] as String,

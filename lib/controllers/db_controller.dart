@@ -1,8 +1,8 @@
 import 'package:floor/floor.dart';
 import 'package:flutter_list_floor/controllers/repository.dart';
 import 'package:flutter_list_floor/database/entitys/main_db_item.dart';
-import 'package:flutter_list_floor/database/entitys/phases.dart';
 import 'package:flutter_list_floor/database/main_database.dart';
+import 'package:flutter_list_floor/models/phases.dart';
 import 'package:flutter_list_floor/res/mainMenu/main2x2.dart';
 import 'package:flutter_list_floor/res/mainMenu/main3x3.dart';
 import 'package:flutter_list_floor/res/mainMenu/main3x3/rozov.dart';
@@ -28,16 +28,23 @@ class DBController extends GetxController {
         .addCallback(callback())
         .build();
     if (needInit) {
-      await _initPhase(Main2x2());
-      await _initPhase(Main3x3());
-      await _initPhase(Rozov());
+      await initPhases();
       print("Init DB with db.dao");
       needInit = false;
     } else {
       print("not first start, db.init don't need");
+      //TODO Пока на время написания программы, будем пересоздавать базу каждый раз
+      await mainBase.mainDao.clearTable();
+      await initPhases();
     }
 
     return mainBase;
+  }
+
+  Future initPhases() async {
+    await _initPhase(Main2x2());
+    await _initPhase(Main3x3());
+    await _initPhase(Rozov());
   }
 
   Future _initPhase(Phase phase) async {

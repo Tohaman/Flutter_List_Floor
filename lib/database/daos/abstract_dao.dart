@@ -11,6 +11,6 @@ abstract class AbstractDao<T> {
   Future<int> deleteItem(T item);
 
   @delete
-  Future<int> deleteAllItems(List<T> items);
+  Future<int> deleteItems(List<T> items);
 
 }

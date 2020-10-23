@@ -202,6 +202,11 @@ class _$MainDao extends MainDao {
   }
 
   @override
+  Future<void> clearTable() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM main');
+  }
+
+  @override
   Future<int> insertItem(MainDBItem item) {
     return _mainDBItemInsertionAdapter.insertAndReturnId(
         item, OnConflictStrategy.abort);
@@ -219,7 +224,7 @@ class _$MainDao extends MainDao {
   }
 
   @override
-  Future<int> deleteAllItems(List<MainDBItem> items) {
+  Future<int> deleteItems(List<MainDBItem> items) {
     return _mainDBItemDeletionAdapter.deleteListAndReturnChangedRows(items);
   }
 }

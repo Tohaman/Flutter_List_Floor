@@ -1,5 +1,6 @@
 
-import 'package:flutter_list_floor/database/entitys/phases.dart';
+
+import 'package:flutter_list_floor/models/phases.dart';
 
 class Main3x3 implements Phase {
   @override
@@ -35,12 +36,12 @@ class Main3x3 implements Phase {
   ];
 
   static const main3x3_icon = [
-    "vbegin_0",
-    "rozov_0",
-    "vbegin_9",
-    "vf2l_2",
-    "blind",
-    "pattern_1",
+    "main_1",
+    "main_2",
+    "main_3",
+    "main_4",
+    "main_5",
+    "main_5",
   ];
 
   static const main3x3_descr = [

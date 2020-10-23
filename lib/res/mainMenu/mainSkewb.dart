@@ -1,6 +1,7 @@
 
 
-import 'package:flutter_list_floor/database/entitys/phases.dart';
+
+import 'package:flutter_list_floor/models/phases.dart';
 
 class MainSkewb implements Phase {
   @override

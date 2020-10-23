@@ -9,4 +9,7 @@ abstract class MainDao extends AbstractDao<MainDBItem> {
 
   @Query('SELECT * FROM main WHERE phase = :phase ORDER BY id')
   Future<List<MainDBItem>> getPhase(String phase);
+
+  @Query('DELETE FROM main')
+  Future<void> clearTable();
 }

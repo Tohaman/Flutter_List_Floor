@@ -40,29 +40,26 @@ class Learn extends StatelessWidget {
 
 class MainMenuItemCard extends StatelessWidget {
   final MainDBItem item;
+
   MainMenuItemCard(this.item);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.amberAccent,
-
       child: ListTile(
           dense: false,
           contentPadding: EdgeInsets.all(0.0),
           leading: Container(
-              color: Colors.red,
-              child:
-                  SvgPicture.asset("assets/images/${item.phase.toLowerCase()}/${item.icon}.svg",
-                    height: 70, width: 70,
-                  ),
+            width: 70,
+            height: 70,
+            color: Colors.red,
+            child: SvgPicture.asset(
+              "assets/images/${item.phase.toLowerCase()}/${item.icon}.svg",
+            ),
           ),
-          title: Container(
-              color: Colors.green,
-              child: Text(item.title)),
-          subtitle: Container(
-              color: Colors.blue,
-              child: Text(item.comment)),
+          title: Container(color: Colors.green, child: Text(item.title)),
+          subtitle: Container(color: Colors.blue, child: Text(item.comment)),
           isThreeLine: false,
           trailing: Icon(Icons.more_vert)),
     );
@@ -71,31 +68,41 @@ class MainMenuItemCard extends StatelessWidget {
 
 class MainMenuItem extends StatelessWidget {
   final MainDBItem item;
+
   MainMenuItem(this.item);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          child: Material(
-            color: Colors.amberAccent,
-            elevation: 10.0,
-            borderRadius: BorderRadius.circular(10.0),
-            shadowColor: Colors.black54,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset("assets/images/${item.phase.toLowerCase()}/${item.icon}.svg",
-                    height: 70,
-                  ),
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Material(
+          //color: Colors.amberAccent,
+          elevation: 10.0,
+          borderRadius: BorderRadius.circular(10.0),
+          shadowColor: Colors.black54,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SvgPicture.asset(
+                  "assets/images/${item.phase.toLowerCase()}/${item.icon}.svg",
+                  height: 70,
                 ),
-                Text(item.title, softWrap: true, maxLines: 3,),
-              ],
-            ),
+              ),
+              Expanded(
+                 child: Padding(
+                   padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                   child: Text(item.title, softWrap: true, maxLines: 3,),
+                 )
+              ),
+              IconButton(icon: Icon(Icons.favorite_border_rounded)),
+            ],
           ),
         ),
+      ),
     );
   }
 }
